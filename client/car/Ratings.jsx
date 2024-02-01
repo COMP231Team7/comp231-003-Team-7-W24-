@@ -15,7 +15,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
-import carImg from './../assets/images/car_owner.webp';
+import carImg from './../assets/images/car.png';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -52,14 +52,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#5b9279',
     marginRight: 5
   },
-  deleteBtn: {
-    color: '#eae6e5',
-    backgroundColor: '#a44a3f'
-  }
+
 }));
 
 export default function Ratings() {
-  const [User, setUser] = useState([]);
+  const [user, setUser] = useState([]);
   const [redirectToList, setRedirect] = useState(false);
   const navigate = useNavigate();
   // const [displayDetail] = false;
@@ -84,7 +81,6 @@ export default function Ratings() {
   //   displayDetail = true;
   // };
 
-  
 
   if (redirectToList) {
     setRedirect(false);
@@ -98,29 +94,22 @@ export default function Ratings() {
         <center>Car Owners</center>
       </Typography>
       <Grid container>
-        {User.map((User, i) => {
+        {user.map((user, i) => {
           return (
               <Grid item xs={3} button key={i}>
                 <Card className={classes.card} variant="outlined">
                   <CardMedia sx={{ height: 140 }} className={classes.media} image={carImg} title="Car"/>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {User.fname}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                     {User.lname}
-                    </Typography>
-                  </CardContent>
+
                   <CardActions>
                   <Grid container spacing={2}>
-                 
+   
                     <Grid item xs={12}>
 
                     {
                       !auth.isAuthenticated() && <span>
-                     <Button size="small" variant="contained" className={classes.editBtn}>Rate Your Experience</Button> 
+                     <Button size="small" variant="contained" className={classes.editBtn}>Rate Now</Button> 
                       <Typography variant="h6" className={classes.lease}>
-                        Lease Information:
+                       Car owner Information:
                       </Typography>
                       </span>
                     }
@@ -128,10 +117,9 @@ export default function Ratings() {
                     <Grid item xs={12}>
                     {
                       !auth.isAuthenticated() && <span>
-                            <div><Chip label={"Name " + User.fname} variant="outlined" /></div>
-                            <div><Chip label={"Email: " + User.email} variant="outlined" /></div>
-                            <div><Chip label={"Phone number: " + User.phone} variant="outlined" /></div>
-                      <div><Chip label={"Postal Code: " + User.postal} variant="outlined" /></div>
+                      <div><Chip label={"Owner: " + user.owner} variant="outlined" /></div>
+                      <div><Chip label={"Phone No.: " + user.phone} variant="outlined" /></div>
+                      <div><Chip label={"Email: " + user.email} variant="outlined" /></div>
                       </span>
                     }
                     </Grid>
