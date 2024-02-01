@@ -15,7 +15,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
-import carImg from './../assets/images/car.png';
+import carImg from './../assets/images/car_owner.webp';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Ratings() {
-  const [cars, setCars] = useState([]);
+  const [User, setUser] = useState([]);
   const [redirectToList, setRedirect] = useState(false);
   const navigate = useNavigate();
   // const [displayDetail] = false;
@@ -72,7 +72,7 @@ export default function Ratings() {
         console.log(data.error);
       } else {
         console.log(data);
-        setCars(data);
+        setUser(data);
       }
     });
     return function cleanup() {
@@ -80,27 +80,11 @@ export default function Ratings() {
     };
   }, []);
 
-  const editCar = (carId) => {
-    navigate("/listCar/edit/" + carId);
-  };
-
   // const displayDetails = () => {
   //   displayDetail = true;
   // };
 
-  const deleteCar = (carId) => {
-    remove(
-      {
-        carId: carId,
-      }
-    ).then((data) => {
-      if (data && data.error) {
-        console.log(data.error);
-      } else {
-        setRedirect(true);
-      };
-    });
-  };
+  
 
   if (redirectToList) {
     setRedirect(false);
@@ -111,41 +95,30 @@ export default function Ratings() {
   return (
     <Paper className={classes.root} elevation={4}>
       <Typography variant="h4" className={classes.title}>
-        <center>All Cars</center>
+        <center>Car Owners</center>
       </Typography>
       <Grid container>
-        {cars.map((car, i) => {
+        {User.map((User, i) => {
           return (
               <Grid item xs={3} button key={i}>
                 <Card className={classes.card} variant="outlined">
                   <CardMedia sx={{ height: 140 }} className={classes.media} image={carImg} title="Car"/>
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                      {car.model}
+                      {User.fname}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                     {car.description}
+                     {User.lname}
                     </Typography>
                   </CardContent>
                   <CardActions>
                   <Grid container spacing={2}>
+                 
                     <Grid item xs={12}>
-                      <Chip label={car.year} variant="outlined" />
-                      <Chip label={car.seats + ' Seats'} variant="outlined" />
-                      <Chip label={car.transmission} variant="outlined" />
-                      <Chip label={car.fuelType} variant="outlined" />
-                      <Chip label={car.mileage + ' km'} variant="outlined" />
-                    </Grid>
-                    <Grid item xs={12}>
-                    {
-                      auth.isAuthenticated() && <span>
-                      <Button size="small" variant="contained" className={classes.editBtn} onClick={() => editCar(car._id)}>Edit</Button>
-                      <Button size="small" variant="contained" className={classes.deleteBtn} onClick={() => deleteCar(car._id)}>Delete</Button>
-                      </span>
-                    }
+
                     {
                       !auth.isAuthenticated() && <span>
-                      {/* <Button size="small" variant="contained" className={classes.editBtn}>Lease Car Now</Button> */}
+                     <Button size="small" variant="contained" className={classes.editBtn}>Rate Your Experience</Button> 
                       <Typography variant="h6" className={classes.lease}>
                         Lease Information:
                       </Typography>
@@ -155,9 +128,10 @@ export default function Ratings() {
                     <Grid item xs={12}>
                     {
                       !auth.isAuthenticated() && <span>
-                      <div><Chip label={"Owner: " + car.owner} variant="outlined" /></div>
-                      <div><Chip label={"Phone No.: " + car.phone} variant="outlined" /></div>
-                      <div><Chip label={"Email: " + car.email} variant="outlined" /></div>
+                            <div><Chip label={"Name " + User.fname} variant="outlined" /></div>
+                            <div><Chip label={"Email: " + User.email} variant="outlined" /></div>
+                            <div><Chip label={"Phone number: " + User.phone} variant="outlined" /></div>
+                      <div><Chip label={"Postal Code: " + User.postal} variant="outlined" /></div>
                       </span>
                     }
                     </Grid>

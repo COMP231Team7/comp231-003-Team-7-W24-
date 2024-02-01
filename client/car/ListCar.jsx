@@ -145,7 +145,7 @@ export default function Cars() {
                     }
                     {
                       !auth.isAuthenticated() && <span>
-                      {/* <Button size="small" variant="contained" className={classes.editBtn}>Lease Car Now</Button> */}
+                     <Button size="small" variant="contained" className={classes.editBtn}>Lease Car Now</Button> 
                       <Typography variant="h6" className={classes.lease}>
                         Lease Information:
                       </Typography>
