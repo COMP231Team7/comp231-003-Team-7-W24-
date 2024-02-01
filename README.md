@@ -1,4 +1,4 @@
-# comp229-stallionProject
+
 
 Setup guide:
 At the root folder:
